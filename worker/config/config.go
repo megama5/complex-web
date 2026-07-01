@@ -21,8 +21,6 @@ var defaultCfg = pq.Config{
 }
 
 func GetConfig() *pq.Config {
-	slog.Debug("env", os.Environ())
-
 	port, err := strconv.Atoi(os.Getenv("PG_PORT"))
 	if err != nil {
 		port = 0
