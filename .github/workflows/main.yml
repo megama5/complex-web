@@ -1,0 +1,73 @@
+name: Test and Deploy
+
+on:
+ push:
+   branches:
+     - master
+ pull_request:
+
+jobs:
+  test-client:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: ./client/go.mod
+  
+      - name: Run Go client tests
+        working-directory: ./client
+        run: go test ./...
+
+  test-server:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: ./server/go.mod
+  
+      - name: Run Go server tests
+        working-directory: ./server
+        run: go test ./...
+
+  test-worker:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: ./worker/go.mod
+  
+      - name: Run Go worker tests
+        working-directory: ./worker
+        run: go test ./...
+
+  deploy:
+    needs:
+      - test-client
+      - test-server
+      - test-worker
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build 
+        run: echo building ...
+        
+      - name: Deploy
+        run: echo deploying ...
+    
+    
+  
