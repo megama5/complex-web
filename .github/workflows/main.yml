@@ -11,12 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version-file: ./client/go.mod
+          cache-dependency-path: ./client/go.sum
   
       - name: Run Go client tests
         working-directory: ./client
@@ -26,12 +27,13 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version-file: ./server/go.mod
+          cache-dependency-path: ./server/go.sum
   
       - name: Run Go server tests
         working-directory: ./server
@@ -41,12 +43,13 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version-file: ./worker/go.mod
+          cache-dependency-path: ./worker/go.sum
   
       - name: Run Go worker tests
         working-directory: ./worker
@@ -61,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Build 
         run: echo building ...
