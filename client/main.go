@@ -24,11 +24,11 @@ func main() {
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/calc", calculateHandler)
 
-	log.Println("server started on :8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Println("server started on :80")
+	log.Fatal(http.ListenAndServe(":80", nil))
 }
 
-func indexHandler(w http.ResponseWriter, r *http.Request) {
+func indexHandler(w http.ResponseWriter, _ *http.Request) {
 	render(w)
 }
 
