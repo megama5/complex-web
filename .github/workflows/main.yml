@@ -74,18 +74,24 @@ jobs:
         with:
           context: ./client
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_HUB_REPO }}:client
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_HUB_REPO }}:client
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_HUB_REPO }}:client-${{ github.sha }}
 
       - name: Build and push server
         uses: docker/build-push-action@v6
         with:
           context: ./server
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_HUB_REPO }}:server
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_HUB_REPO }}:server
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_HUB_REPO }}:server-${{ github.sha }}
 
       - name: Build and push worker
         uses: docker/build-push-action@v6
         with:
           context: ./worker
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_HUB_REPO }}:worker
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_HUB_REPO }}:worker
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_HUB_REPO }}:worker-${{ github.sha }}
