@@ -1,0 +1,1 @@
+services:  client:    image: petromarik777/complex_web:client    ports:      - "80:80"    environment:      SERVER_HOST: server      SERVER_PORT: 3001    depends_on:      - server    restart: always  server:    image: petromarik777/complex_web:server    restart: always  worker:    image: petromarik777/complex_web:worker    restart: always
