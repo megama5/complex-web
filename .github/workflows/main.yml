@@ -98,8 +98,9 @@ jobs:
 
       - name: Create deployment package
         run: |
-          cp docker-compose.prod.yaml docker-compose.yaml
-          zip deploy.zip docker-compose.yaml
+          cp docker-compose.prod.yml docker-compose.yml
+          chmod +x .platform/hooks/prebuild/01_docker_login.sh
+          zip -r deploy.zip docker-compose.yml .platform
 
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v22
