@@ -95,3 +95,17 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_HUB_REPO }}:worker
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_HUB_REPO }}:worker-${{ github.sha }}
+
+      - name: Create deployment package
+        run: zip -r deploy.zip Dockerrun.aws.json
+
+      - name: Deploy to Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v22
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: complex-web
+          environment_name: Complex-web-env
+          region: us-east-1
+          version_label: ${{ github.sha }}
+          deployment_package: deploy.zip
