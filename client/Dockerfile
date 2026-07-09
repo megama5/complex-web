@@ -24,6 +24,7 @@ FROM alpine:latest
 WORKDIR /app
 
 COPY --from=builder /app/client .
+COPY --from=builder /app/templates ./templates
 
 USER nobody
 
